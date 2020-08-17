@@ -6,6 +6,7 @@ import {
 } from "expo-location";
 
 export default (shouldTrack, callback) => {
+  
   const [err, setErr] = useState(null);
   const [subscriber, setSubsciber] = useState(null);
   const startWatching = async () => {
@@ -31,7 +32,7 @@ export default (shouldTrack, callback) => {
       subscriber.remove();
       setSubsciber(null);
     }
-  }, [shouldTrack]);
+  }, [shouldTrack,callback]);
 
   return [err];
 };

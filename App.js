@@ -11,7 +11,9 @@ import {
   Provider as AuthProvider,
   Context as AuthContext,
 } from "./src/context/AuthContext";
+
 import HomeScreen from "./src/screens/HomeScreen";
+import { Provider as LocationProvider } from "./src/context/LocationContext";
 const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
 
@@ -42,9 +44,11 @@ function AppContainer() {
 
 function App() {
   return (
-    <AuthProvider>
-      <AppContainer />
-    </AuthProvider>
+    <LocationProvider>
+      <AuthProvider>
+        <AppContainer />
+      </AuthProvider>
+    </LocationProvider>
   );
 }
 

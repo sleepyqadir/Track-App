@@ -1,18 +1,22 @@
-import React, { useEffect, useState, useContext } from "react";
+import React, { useContext, useCallback } from "react";
 import { SafeAreaView, StyleSheet, Text } from "react-native";
 import Map from "../components/Map";
 import { Context } from "../context/LocationContext";
 import useLocation from "../hooks/useLocation";
-import { useFocusEffect, useIsFocused } from "@react-navigation/native";
+import { useIsFocused } from "@react-navigation/native";
 import TrackForm from "../components/TrackForm";
 const TrackCreateScreen = () => {
-  // useFocusEffect(() => {
-  //   return () => {};
-  // });
+
   const isFocused = useIsFocused();
-  const { addLocation } = useContext(Context);
-  const [err] = useLocation(isFocused, addLocation);
-  console.log(isFocused);
+  const { state, addLocation } = useContext(Context);
+  const callback = useCallback(
+    (location) => {
+      addLocation(location, state.recording);
+    },
+    [state.recording]
+  );
+  const [err] = useLocation(isFocused, callback);
+  console.log(state.locations.length)
   return (
     <SafeAreaView style={styles.container}>
       <Map />

@@ -9,7 +9,6 @@ const Map = () => {
   if (!currentLocation) {
     return <ActivityIndicator size="large" style={{ marginTop: 200 }} />;
   }
-  console.log(currentLocation);
   return (
     <View style={styles.mapcontainer}>
       <MapView
@@ -41,6 +40,10 @@ export default Map;
 const styles = StyleSheet.create({
   mapcontainer: {
     marginBottom: 30,
+    borderColor: "lightgrey",
+    borderWidth: 2,
+    borderRightWidth: 20,
+    borderLeftWidth: 20,
   },
   map: {
     height: 350,

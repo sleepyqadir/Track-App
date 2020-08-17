@@ -1,19 +1,37 @@
-import React, { useState } from "react";
-import { StyleSheet, Text, View, TextInput, TouchableOpacity } from "react-native";
+import React, { useState, useContext } from "react";
+import {
+  StyleSheet,
+  Text,
+  View,
+  TextInput,
+  TouchableOpacity,
+} from "react-native";
+import { Context } from "../context/LocationContext";
 
 const TrackForm = () => {
-  const [email, setEmail] = useState("");
+  const {
+    state: { name, recording},
+    startRecording,
+    stopRecording,
+    changeName,
+  } = useContext(Context);
+
   return (
     <View>
       <TextInput
         style={styles.formInput}
         placeholder="track name"
-        onChangeText={setEmail}
-        value={email}
+        onChangeText={changeName}
+        value={name}
         autoCorrect={false}
       />
-      <TouchableOpacity style={styles.button} onPress={() => {}}>
-        <Text style={styles.buttonText}>Start Recording</Text>
+      <TouchableOpacity
+        style={styles.button}
+        onPress={recording ? stopRecording : startRecording}
+      >
+        <Text style={styles.buttonText}>
+          {recording ? "Stop" : "Start Recording"}
+        </Text>
       </TouchableOpacity>
     </View>
   );
