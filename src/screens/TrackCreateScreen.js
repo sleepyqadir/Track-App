@@ -6,7 +6,6 @@ import useLocation from "../hooks/useLocation";
 import { useIsFocused } from "@react-navigation/native";
 import TrackForm from "../components/TrackForm";
 const TrackCreateScreen = () => {
-
   const isFocused = useIsFocused();
   const { state, addLocation } = useContext(Context);
   const callback = useCallback(
@@ -15,8 +14,8 @@ const TrackCreateScreen = () => {
     },
     [state.recording]
   );
-  const [err] = useLocation(isFocused, callback);
-  console.log(state.locations.length)
+  const [err] = useLocation(isFocused || state.recording, callback);
+  console.log(state.locations.length);
   return (
     <SafeAreaView style={styles.container}>
       <Map />

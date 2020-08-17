@@ -7,7 +7,6 @@ import {
 
 export default (shouldTrack, callback) => {
   const [err, setErr] = useState(null);
-
   useEffect(() => {
     let subscriber;
     const startWatching = async () => {
@@ -28,15 +27,17 @@ export default (shouldTrack, callback) => {
     if (shouldTrack) {
       startWatching();
     } else {
-      subscriber.remove();
-      subscriber = null;
+      if (subscriber) {
+        subscriber.remove();
+        subscriber = null;
+      }
     }
     return () => {
       if (subscriber) {
         subscriber.remove();
       }
     };
-  }, [shouldTrack, callback, subscriber]);
+  }, [shouldTrack, callback]);
 
   return [err];
 };
