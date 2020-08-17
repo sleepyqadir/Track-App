@@ -7,15 +7,18 @@ import { useIsFocused } from "@react-navigation/native";
 import TrackForm from "../components/TrackForm";
 const TrackCreateScreen = () => {
   const isFocused = useIsFocused();
-  const { state, addLocation } = useContext(Context);
+  const {
+    state: { recording, locations },
+    addLocation,
+  } = useContext(Context);
   const callback = useCallback(
     (location) => {
-      addLocation(location, state.recording);
+      addLocation(location, recording);
     },
-    [state.recording]
+    [recording]
   );
-  const [err] = useLocation(isFocused || state.recording, callback);
-  console.log(state.locations.length);
+  const [err] = useLocation(isFocused || recording, callback);
+  console.log(locations.length);
   return (
     <SafeAreaView style={styles.container}>
       <Map />
