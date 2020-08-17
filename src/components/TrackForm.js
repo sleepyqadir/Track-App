@@ -7,15 +7,16 @@ import {
   TouchableOpacity,
 } from "react-native";
 import { Context } from "../context/LocationContext";
+import useSaveTrack from "../hooks/useSaveTrack";
 
-const TrackForm = () => {
+const TrackForm = ({ navigation }) => {
   const {
-    state: { name, recording},
+    state: { name, recording, locations },
     startRecording,
     stopRecording,
     changeName,
   } = useContext(Context);
-
+  const [saveTrack] = useSaveTrack(navigation);
   return (
     <View>
       <TextInput
@@ -33,6 +34,11 @@ const TrackForm = () => {
           {recording ? "Stop" : "Start Recording"}
         </Text>
       </TouchableOpacity>
+      {!recording && locations.length ? (
+        <TouchableOpacity style={styles.button} onPress={saveTrack}>
+          <Text style={styles.buttonText}>Save Recording</Text>
+        </TouchableOpacity>
+      ) : null}
     </View>
   );
 };
@@ -54,6 +60,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 20,
     paddingVertical: 10,
     borderRadius: 5,
+    marginBottom: 10,
   },
   buttonText: {
     color: "white",

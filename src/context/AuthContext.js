@@ -1,7 +1,7 @@
 import tracker from "../api/tracker";
-import React from "react";
 import { _storeData, _retrieveData, _clearData } from "../Db/localStorage";
 import createDataContext from "./createDataContext";
+import { CommonActions } from "@react-navigation/native";
 const authReducer = (state, action) => {
   switch (action.type) {
     case "SIGN_IN":
@@ -27,7 +27,12 @@ const trysignin = (dispatch) => {
           payload: token,
         });
       } else {
-        navigation.navigate("signin")
+        navigation.dispatch(
+          CommonActions.navigate({
+            name: "signin",
+            params: {},
+          })
+        );
       }
     });
   };
@@ -36,7 +41,9 @@ const trysignin = (dispatch) => {
 const signin = (dispatch) => {
   return async ({ email, password }) => {
     try {
+      console.log("here");
       const response = await tracker.post("/signin", { email, password });
+      console.log("here2");
       await _storeData(response.data.token);
       dispatch({
         type: "SIGN_IN",
@@ -54,7 +61,9 @@ const signin = (dispatch) => {
 const signup = (dispatch) => {
   return async ({ email, password }) => {
     try {
+      console.log("here");
       const response = await tracker.post("/signup", { email, password });
+      console.log("here2");
       await _storeData(response.data.token);
       dispatch({
         type: "SIGN_UP",

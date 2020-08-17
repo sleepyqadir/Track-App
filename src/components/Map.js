@@ -54,6 +54,6 @@ const styles = StyleSheet.create({
     borderLeftWidth: 20,
   },
   map: {
-    height: 350,
+    height: 300,
   },
 });

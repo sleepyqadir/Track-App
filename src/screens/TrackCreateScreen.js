@@ -5,7 +5,7 @@ import { Context } from "../context/LocationContext";
 import useLocation from "../hooks/useLocation";
 import { useIsFocused } from "@react-navigation/native";
 import TrackForm from "../components/TrackForm";
-const TrackCreateScreen = () => {
+const TrackCreateScreen = ({ navigation }) => {
   const isFocused = useIsFocused();
   const {
     state: { recording, locations },
@@ -18,12 +18,11 @@ const TrackCreateScreen = () => {
     [recording]
   );
   const [err] = useLocation(isFocused || recording, callback);
-  console.log(locations.length);
   return (
     <SafeAreaView style={styles.container}>
       <Map />
       {err ? <Text>Please enable location services</Text> : null}
-      <TrackForm />
+      <TrackForm navigation={navigation} />
     </SafeAreaView>
   );
 };
